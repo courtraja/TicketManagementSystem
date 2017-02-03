@@ -2,7 +2,7 @@ package com.raja.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -61,11 +61,12 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 		
 		return (EmployeeDetails) jdbcTemplate.queryForObject(sql, (rs,rowNum) -> convert(rs));
 	}
-	public EmployeeDetails list()
+	
+	public List<EmployeeDetails> list()
 	{
 		String sql = "select * from employee_details";
 		
-		return (EmployeeDetails) jdbcTemplate.queryForObject(sql, (rs,rowNum) -> convert(rs));
+		return (List<EmployeeDetails>) jdbcTemplate.queryForObject(sql, (rs,rowNum) -> convert(rs));
 	}
 	
 }

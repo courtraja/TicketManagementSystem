@@ -11,23 +11,24 @@ public class TestUserDetailsDao {
 
 	public static void main(String[] args) {
 		UserDetailsDao userDao=new UserDetailsDao();
-		UserDetails detail=new UserDetails();
+		//UserDetails detail=new UserDetails();
 		
 		
 		
 		
 	
-		detail.setUserId(17);
-		detail.setUserMail("gyugfygs@gmail.com");
-		detail.setUserName("hiufgh");
-		detail.setPass("dfjvgbhgsb1335");
+//		detail.setUserId(17);
+//		detail.setUserMail("gyugfygs@gmail.com");
+//		detail.setUserName("hiufgh");
+//		detail.setPass("dfjvgbhgsb1335");
+//		
+//		userDao.save(detail);
+		List<UserDetails> list=userDao.list();
 		
-		userDao.save(detail);
-//		List<FoodTable> list=TapDao.list();
-//		for(FoodTable fd:list)
-//		{
-//			System.out.println(fd);
-//		}
+		for(UserDetails fd:list)
+		{
+			System.out.println(fd);
+		}
 		
 		
 	}

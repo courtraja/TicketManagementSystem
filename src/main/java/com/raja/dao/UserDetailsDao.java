@@ -2,7 +2,7 @@ package com.raja.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -46,7 +46,7 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 			user.setUserId(rs.getInt("user_id"));
 			user.setUserName(rs.getString("user_name"));
 			user.setUserMail(rs.getString("user_email"));
-			user.setPass(rs.getString("user_pass"));
+			user.setPass(rs.getString("user_password"));
 			user.setActive(rs.getString("user_active"));
 			return user;
 			
@@ -58,11 +58,11 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 		
 		return (UserDetails) jdbcTemplate.query(sql, (rs,rowNum) -> convert(rs));
 	}
-	public UserDetails list()
+	public List<UserDetails> list()
 	{
 		String sql = "select * from user_details";
 		
-		return (UserDetails) jdbcTemplate.query(sql, (rs,rowNum) -> convert(rs));
+		return (List<UserDetails>) jdbcTemplate.query(sql, (rs,rowNum) -> convert(rs));
 	}
 	
 }
