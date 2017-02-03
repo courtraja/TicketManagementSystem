@@ -47,7 +47,7 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 			user.setUserName(rs.getString("user_name"));
 			user.setUserMail(rs.getString("user_email"));
 			user.setPass(rs.getString("user_password"));
-			user.setActive(rs.getString("user_active"));
+			user.setActive(rs.getBoolean("user_active"));
 			return user;
 			
 		};

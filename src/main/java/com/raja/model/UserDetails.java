@@ -9,6 +9,6 @@ public class UserDetails {
 	private String UserName;
 	 private String UserMail;
 	 private String pass;
-	 private String active;
+	 private boolean active;
 	
 }

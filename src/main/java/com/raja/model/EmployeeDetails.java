@@ -10,8 +10,8 @@ public class EmployeeDetails {
 	private String employeeMail;
 	private String employeePass;
 	private String employeeActive;
-	private String roles;
-    private DepartmentDetails departmentId;
 	
+    private DepartmentDetails departmentId;
+	private role roleId;
 	
 }
