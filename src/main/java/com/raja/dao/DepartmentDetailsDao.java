@@ -62,4 +62,5 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 		return (List<DepartmentDetails>) jdbcTemplate.query(sql, (rs,rowNum) -> convert(rs));
 	}
 	
+	
 }
