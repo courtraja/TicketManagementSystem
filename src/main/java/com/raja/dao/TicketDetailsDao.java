@@ -40,7 +40,8 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 	public void delete(TicketDetails ticket) {
 
 		String sql = "delete from ticket_details where user_id=?";
-		Object[] params = {ticket.getUserId()};
+		
+		Object[] params = {ticket.getId()};
 		jdbcTemplate.update(sql, params);
 		
 		}

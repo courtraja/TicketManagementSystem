@@ -1,21 +1,19 @@
-package service;
+package com.raja.service;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.ValidationException;
-
-import com.mysql.cj.mysqlx.protobuf.MysqlxNotice.Warning.Level;
-
-import dao.IssueDetailsDao;
-import dao.TicketDetailsDao;
-import model.DepartmentDetails;
-import model.EmployeeDetails;
-import model.TicketDetails;
-import validation.TicketDetailsValidation;
+import com.raja.dao.IssueDetailsDao;
+import com.raja.dao.TicketDetailsDao;
+import com.raja.exception.ValidationException;
+import com.raja.model.DepartmentDetails;
+import com.raja.model.EmployeeDetails;
+import com.raja.model.TicketDetails;
+import com.raja.validation.TicketDetailsValidator;
 
 public class TicketDetailsService {
 
-	TicketDetailsValidation ticketDetailValidator=new TicketDetailsValidation();
+	TicketDetailsValidator ticketDetailValidator=new TicketDetailsValidator();
 	final Logger logger = Logger.getLogger(DepartmentDetails.class.getName());
 public void save(TicketDetails ticketDetail){
 	try{
@@ -30,11 +28,10 @@ public void delete(TicketDetails ticketDetail){
 	try{
 		ticketDetailValidator.deleteValidation(ticketDetail);
 		TicketDetailsDao ticketDetailDao=new TicketDetailsDao();
-		EmployeeDetails row =ticketDetailDao.checkadmin(ticketDetail.getUserId().getId());
+		EmployeeDetails row =ticketDetailDao.checkadmin(ticketDetail.getUserId().getUserId());
 	     ticketDetailValidator.deleteTicketAssign(row);
-			IssueDetailsDao issueDao=new IssueDetailsDao();
-		issueDao.deleteIssue(ticketDetail);
-		ticketDetailDao.delete(ticketDetail.getId(),ticketDetail.getUserId().getId());
+			
+		ticketDetailDao.delete(ticketDetail);
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE,"exception occur",e);
 	}
@@ -43,7 +40,7 @@ public void update(TicketDetails ticketDetail){
 	try{
 		ticketDetailValidator.updateValidation(ticketDetail);
 		TicketDetailsDao ticketDetailDao=new TicketDetailsDao();
-		ticketDetailDao.update(ticketDetail.getUserId().getId(), ticketDetail.getUserId().getId(),ticketDetail.getSubject());
+		ticketDetailDao.update(ticketDetail);
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE, "Exception occur", e);
 		}
@@ -63,9 +60,9 @@ public void assignTicket(TicketDetails ticketDetail ){
 		ticketDetailValidator.assignTicketValidation(ticketDetail);
 		TicketDetailsDao ticketDetailDao=new TicketDetailsDao();
 		DepartmentDetails department=new DepartmentDetails();
-		EmployeeDetails row=ticketDetailDao.checkEmployee(ticketDetail.getUserId().getId(),department.getName());
+		EmployeeDetails row=ticketDetailDao.checkEmployee(ticketDetail.getUserId().getUserId(),department.getDepartmentName());
 		ticketDetailValidator.employeeValidation(row);
-		ticketDetailDao.assignTicket(ticketDetail.getId(), ticketDetail.getAssignedTo().getId(),ticketDetail.getModifiedTime());
+		ticketDetailDao.assignTicket(ticketDetail.getId(), ticketDetail.getId(),ticketDetail.getModifiedTime());
 	}catch(ValidationException e)
 	{
 		logger.log(Level.SEVERE,"Exception occur", e);
