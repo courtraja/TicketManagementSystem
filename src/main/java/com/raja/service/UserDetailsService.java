@@ -1,12 +1,11 @@
-package service;
+package com.raja.service;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import dao.UserDetailsDao;
-
-
-import javax.xml.bind.ValidationException;
-
-import com.mysql.cj.mysqlx.protobuf.MysqlxNotice.Warning.Level;
-import model.UserDetails;
+import com.raja.dao.UserDetailsDao;
+import com.raja.exception.ValidationException;
+import com.raja.model.DepartmentDetails;
+import com.raja.model.UserDetails;
+import com.raja.validation.UserDetailsValidation;
 public class UserDetailsService {
 	final Logger logger = Logger.getLogger(DepartmentDetails.class.getName());
 	UserDetailsValidation userDetailValidator=new UserDetailsValidation();
@@ -24,16 +23,16 @@ public void delete(UserDetails userDetail){
 	try{
 		userDetailValidator.deleteValidation(userDetail);
 		UserDetailsDao userDetailDao=new UserDetailsDao();
-		userDetailDao.delete(userDetail.getId());
+		userDetailDao.delete(userDetail);
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE, "exception occur", e);
 	}
 }
-public void update(UserDetail userDetail){
+public void update(UserDetails userDetail){
 	try{
 		userDetailValidator.updateValidation(userDetail);
-		UserDetailDao userDetailDao=new UserDetailsDao();
-		userDetailDao.update(userDetail.getId(), userDetail.getPassword());
+		UserDetailsDao userDetailDao=new UserDetailsDao();
+		userDetailDao.update(userDetail);
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE,"exception occur", e);
 	}
@@ -41,9 +40,9 @@ public void update(UserDetail userDetail){
 public void login(String email,String password){
 	try{
 		UserDetailsDao userDetailDao=new UserDetailsDao();
-		UserDetails row=(userDetailDao.selectOne(email));
-		String tname=row.getEmailId();
-		String tpassword=row.getName();
+		UserDetails row=(userDetailDao.findone());
+		String tname=row.getUserMail();
+		String tpassword=row.getUserName();
 		
 		String message=(userDetailValidator.loginValidation(tname, tpassword, email, password));
 		
