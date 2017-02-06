@@ -7,9 +7,7 @@ import javax.xml.bind.ValidationException;
 
 public class ValidationUtil {
 
-	private ValidationUtil() {
-
-	}
+	
 
 	public static void isInvalidObject(Object obj, String msg) throws ValidationException {
 		if (obj == null) {
@@ -47,11 +45,6 @@ public class ValidationUtil {
 			throw new ValidationException(msg);
 		}
 	}
-
-
-
-
-
 
 public static void isValidEmail(String email, String msg) throws ValidationException {
 		if (email == null || "".equals(email.trim()) || !email.contains("@") || !email.contains(".")) {
