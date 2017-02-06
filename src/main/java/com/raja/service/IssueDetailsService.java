@@ -1,14 +1,14 @@
-package service;
+package com.raja.service;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.ValidationException;
 
-import com.mysql.cj.mysqlx.protobuf.MysqlxNotice.Warning.Level;
 
-import dao.IssueDetailsDao;
-import model.IssueDetails;
-import validation.IssueDetailsValidation;
+import com.raja.dao.IssueDetailsDao;
+import com.raja.exception.ValidationException;
+import com.raja.model.IssueDetails;
+import com.raja.validation.IssueDetailsValidation;
 
 public class IssueDetailsService {
 IssueDetailsValidation issueValidator=new IssueDetailsValidation();
@@ -20,7 +20,7 @@ public void replyToTicket(IssueDetails issue){
 		IssueDetailsDao issueDao=new IssueDetailsDao();
 		issueDao.save(issue);
 		
-		issueDao.updateStatus(issue.getIssueId());}
+		issueDao.update(issue);}
 	catch(ValidationException e){
 		logger.log(Level.SEVERE, "Exception occur", e);
 	}

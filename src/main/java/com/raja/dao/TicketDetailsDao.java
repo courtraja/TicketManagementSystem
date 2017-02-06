@@ -1,5 +1,4 @@
-package dao;
-
+package com.raja.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -7,11 +6,11 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import model.DepartmentDetails;
-import model.EmployeeDetails;
-import model.TicketDetails;
-import model.UserDetails;
-import util.ConnectionUtil;
+import com.raja.model.DepartmentDetails;
+import com.raja.model.EmployeeDetails;
+import com.raja.model.TicketDetails;
+import com.raja.model.UserDetails;
+import com.raja.util.ConnectionUtil;
 
 public class TicketDetailsDao {
 
@@ -27,7 +26,7 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 		}
 	public int createticket(TicketDetails ticketDetail){
 		String sql="insert into ticket_details(id,user,department,subject,description,created_time,priority )values(?,?,?,?,?,?,?)";
-		Object[] params={ticketDetail.getId(),ticketDetail.getUserId().getUserId(),ticketDetail.getDepartmenttId(),ticketDetail.getSubject(),ticketDetail.getDescription(),ticketDetail.getCreatedTime(),ticketDetail.getPriority()};
+		Object[] params={ticketDetail.getId(),ticketDetail.getUserId().getUserId(),ticketDetail.getDepartmentId(),ticketDetail.getSubject(),ticketDetail.getDescription(),ticketDetail.getCreatedTime(),ticketDetail.getPriority()};
 	   return jdbcTemplate.update(sql,params);
 	}
 	public void update(TicketDetails ticket) {
@@ -78,7 +77,7 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 			
 			ticket1.setId(rs.getInt("id"));
 			ticket1.setUserId(user);
-			ticket1.setDepartmenttId(dept);
+			ticket1.setDepartmentId(dept);
 			ticket1.setSubject(rs.getString("subject"));
 			ticket1.setDescription(rs.getString("description"));
 			ticket1.setEmployeeId(employ);
@@ -108,7 +107,7 @@ JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
 	
 		String sql="select id from seed_employee_details where id=? and role=(select id from seed_role where name=?)";
 		Object[] params={id,"admin"};
-		return jdbcTemplate.queryForObject(sql,params,(rs,rownum)->{
+		return (EmployeeDetails) jdbcTemplate.queryForObject(sql,params,(rs,rownum)->{
 			EmployeeDetails employeeDetail=new EmployeeDetails();
 			employeeDetail.setEmployeeId(rs.getInt("id"));
 			return employeeDetail;

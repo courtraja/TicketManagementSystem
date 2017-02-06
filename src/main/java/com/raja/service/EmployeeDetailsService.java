@@ -1,14 +1,18 @@
-package service;
+package com.raja.service;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.ValidationException;
-import model.EmployeeDetails;
-import com.mysql.cj.mysqlx.protobuf.MysqlxNotice.Warning.Level;
+import com.raja.dao.EmployeeDetailsDao;
+import com.raja.exception.ValidationException;
+import com.raja.model.DepartmentDetails;
+import com.raja.model.EmployeeDetails;
+import com.raja.validation.EmployeeValidation;
+
 
 public class EmployeeDetailsService {
- EmployeeDetailsValidation employeeDetailValidator=new EmployeeDetailsValidation();
-	final Logger logger = Logger.getLogger(Department.class.getName());
+ EmployeeValidation employeeDetailValidator=new EmployeeValidation();
+	final Logger logger = Logger.getLogger(DepartmentDetails.class.getName());
 
  public void save(EmployeeDetails employee){
 	 try{
@@ -23,7 +27,7 @@ public class EmployeeDetailsService {
 	 try{
 		 employeeDetailValidator.deleteValidation(employee);
 		 EmployeeDetailsDao employeeDetailDao=new EmployeeDetailsDao();
-		 employeeDetailDao.delete(employee.getId());
+		 employeeDetailDao.delete(employee);
 	 }catch (ValidationException e){
 		 logger.log(Level.CONFIG,"exception occur",e);
 	 }
