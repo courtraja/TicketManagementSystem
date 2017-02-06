@@ -72,7 +72,7 @@ public void updateReassign(TicketDetails ticketDetail){
 	try{
 		ticketDetailValidator.assignTicketValidation(ticketDetail);
 		TicketDetailsDao ticketDetailDao=new TicketDetailsDao();
-		ticketDetailDao.reassignTicket(ticketDetail.getId(), ticketDetail.getAssignedTo().getId());
+		ticketDetailDao.reassignTicket(ticketDetail.getId(), ticketDetail.getEmployeeId().getEmployeeId());
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE, "Exception occur", e);
 		}
@@ -80,7 +80,7 @@ public void updateReassign(TicketDetails ticketDetail){
 public void close(TicketDetails ticketDetail){
 	try{
 		ticketDetailValidator.closeticketValidation(ticketDetail);
-		TicketDetaislDao ticketDetailDao=new TicketDetailsDao();
+		TicketDetailsDao ticketDetailDao=new TicketDetailsDao();
 		ticketDetailDao.closeTicket(ticketDetail.getId());
 	}catch(ValidationException e){
 		logger.log(Level.SEVERE, "exception occur", e);

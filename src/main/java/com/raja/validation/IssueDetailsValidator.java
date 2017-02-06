@@ -2,7 +2,6 @@ package com.raja.validation;
 
 import com.raja.exception.ValidationException;
 import com.raja.model.IssueDetails;
-import com.raja.model.TicketDetails;
 import com.raja.util.ValidationUtil;
 
 public class IssueDetailsValidator {
@@ -22,15 +21,15 @@ public class IssueDetailsValidator {
 		ValidationUtil.isInvalidString(msg, "invalid solution");
 	}
 	public void saveValidation(IssueDetails IssueDetails)throws ValidationException{
-		idValidation(IssueDetails.getId());
-		ticketValidation(IssueDetails.getId());
+		idValidation(IssueDetails.getId().getId());
+		ticketValidation(IssueDetails.getId().getId());
 		solutionValidation(IssueDetails.getSolution());
 	}
 	public void deleteValidation(IssueDetails IssueDetails)throws ValidationException{
-		idValidation(IssueDetails.getId());
+		idValidation(IssueDetails.getId().getId());
 	}
 	public void updateValidation(IssueDetails IssueDetails )throws ValidationException{
-		idValidation(IssueDetails.getId());
+		idValidation(IssueDetails.getId().getId());
 		solutionValidation(IssueDetails.getSolution());
 	}
 }

@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import com.raja.dao.IssueDetailsDao;
 import com.raja.exception.ValidationException;
 import com.raja.model.IssueDetails;
-import com.raja.validation.IssueDetailsValidation;
+import com.raja.validation.IssueDetailsValidator;
 
 public class IssueDetailsService {
-IssueDetailsValidation issueValidator=new IssueDetailsValidation();
+IssueDetailsValidator issueValidator=new IssueDetailsValidator();
 final Logger logger = Logger.getLogger(IssueDetails.class.getName());
 
 public void replyToTicket(IssueDetails issue){
