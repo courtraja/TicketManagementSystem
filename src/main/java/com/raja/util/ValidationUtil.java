@@ -3,7 +3,8 @@ package com.raja.util;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import javax.xml.bind.ValidationException;
+import com.raja.exception.ValidationException;
+
 
 public class ValidationUtil {
 
